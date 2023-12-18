@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from vertexcall import search_sample
+# from vertexcall import search_sample
+import time
+t = time.localtime()
+current_time = time.strftime("%H:%M:%S", t)
 
 # from dotenv import load_dotenv
 # import os
@@ -30,8 +33,43 @@ def login():
 
 @app.route("/chat")
 def index():
+    conversation_data = [
+        {
+            'sender': 'User',
+        },
+        {
+            'sender': 'User',
+            'time': f'{current_time}',
+            'message': f'Hello!'
+        },
+        {
+            'sender': 'System Message',
+            'time': f'{current_time}',
+            'message': f'Hello, how are you?'
+        },
+        {
+            'sender': 'User',
+            'time': f'{current_time}',
+            'message': f'Good.'
+        },
+        {
+            'sender': 'System Message',
+            'time': f'{current_time}',
+            'message': f'Amazing.'
+        },
+        {
+            'sender': 'User',
+            'time': f'{current_time}',
+            'message': f'Good.'
+        },
+    ]
+
+    if len(conversation_data) > 6:
+        conversation_data.pop(2)
+
+    # info = search_sample()
     email = session.get('email')
-    return render_template("index.html", email=email)
+    return render_template("index.html", email=email, conversation_data=conversation_data)
 
 
 if __name__ == '__main__':
