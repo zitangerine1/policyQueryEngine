@@ -33,10 +33,8 @@ def login():
 
 @app.route("/chat")
 def index():
+    active_stores = []
     conversation_data = [
-        {
-            'sender': 'User',
-        },
         {
             'sender': 'User',
             'time': f'{current_time}',
@@ -45,7 +43,7 @@ def index():
         {
             'sender': 'System Message',
             'time': f'{current_time}',
-            'message': f'Hello, how are you?'
+            'message': f'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus turpis massa tincidunt dui ut ornare lectus sit amet. Nullam non nisi est sit amet facilisis magna etiam tempor. Dolor sit amet consectetur adipiscing elit ut aliquam. Vitae semper quis lectus nulla at volutpat diam ut.'
         },
         {
             'sender': 'User',
@@ -62,14 +60,25 @@ def index():
             'time': f'{current_time}',
             'message': f'Good.'
         },
+        {
+            'sender': 'User',
+            'time': f'{current_time}',
+            'message': f'ihabjdfknospeahukjanls;opink'
+        },
     ]
-
-    if len(conversation_data) > 6:
-        conversation_data.pop(2)
 
     # info = search_sample()
     email = session.get('email')
     return render_template("index.html", email=email, conversation_data=conversation_data)
+
+
+@app.route('/statistics')
+def stats():
+    return render_template('stats.html')
+
+@app.route('/convos')
+def pastconv():
+    return render_template('convos.html')
 
 
 if __name__ == '__main__':
