@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 # from vertexcall import search_sample
 import time
 t = time.localtime()
 current_time = time.strftime("%H:%M:%S", t)
+
+conversation_data = []
 
 # from dotenv import load_dotenv
 # import os
@@ -34,39 +36,6 @@ def login():
 @app.route("/chat")
 def index():
     active_stores = []
-    conversation_data = [
-        {
-            'sender': 'User',
-            'time': f'{current_time}',
-            'message': f'Hello!'
-        },
-        {
-            'sender': 'System Message',
-            'time': f'{current_time}',
-            'message': f'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus turpis massa tincidunt dui ut ornare lectus sit amet. Nullam non nisi est sit amet facilisis magna etiam tempor. Dolor sit amet consectetur adipiscing elit ut aliquam. Vitae semper quis lectus nulla at volutpat diam ut.'
-        },
-        {
-            'sender': 'User',
-            'time': f'{current_time}',
-            'message': f'Good.'
-        },
-        {
-            'sender': 'System Message',
-            'time': f'{current_time}',
-            'message': f'Amazing.'
-        },
-        {
-            'sender': 'User',
-            'time': f'{current_time}',
-            'message': f'Good.'
-        },
-        {
-            'sender': 'User',
-            'time': f'{current_time}',
-            'message': f'ihabjdfknospeahukjanls;opink'
-        },
-    ]
-
     # info = search_sample()
     email = session.get('email')
     return render_template("index.html", email=email, conversation_data=conversation_data)
@@ -74,11 +43,21 @@ def index():
 
 @app.route('/statistics')
 def stats():
-    return render_template('stats.html')
+    return render_template('update_content.html')
+
 
 @app.route('/convos')
 def pastconv():
     return render_template('convos.html')
+
+
+@app.route('/sendmessage', methods=["POST"])
+def append_dict():
+    payload = request.get_json()
+    conversation_data.append(payload)
+    updated_content = render_template('update_content.html', conversation_data=conversation_data)
+    print(f'updated_content: {updated_content}')
+    return jsonify({'updated_content': updated_content, 'success': True})
 
 
 if __name__ == '__main__':

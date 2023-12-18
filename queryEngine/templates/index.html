@@ -7,9 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Policy Query Engine</title>
     <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
+    <link rel="icon" href="https://www.gstatic.com/lamda/images/sparkle_resting_v2_darkmode_2bdb7df2724e450073ede.gif" type="image/gif">
 </head>
 
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/render.js') }}"></script>
 
 <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
     <div class="container flex items-center justify-between mx-auto">
@@ -204,8 +209,7 @@
 
 
     <div class="w-[70%]">
-        <div class="bg-white rounded-lg shadow-md overflow-hidden overflow-y-auto max-h-[75%]">
-
+        <div id="chatContainer" class="bg-white rounded-lg shadow-md overflow-hidden overflow-y-auto max-h-[75%]">
             {% for chat_item in conversation_data %}
                 {% if chat_item['sender'] != 'System Message' %}
                     <div class="flex items-start gap-2.5 mx-4 my-3">
@@ -240,8 +244,8 @@
         </div>
                 <div class="mb-5 mt-5 bg-white rounded-lg shadow-md overflow-hidden overflow-y-auto">
                 <label for="floating_outlined" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mx-4 my-3">Your Question</label><div class="flex">
-                  <input type="email" id="email" class="flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-4 mb-4" placeholder="How is my data used?" required>
-                  <button type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Send</button>
+                  <input id='userMessageInput' class="flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-4 mb-4" placeholder="How is my data used?" required>
+                  <button type="button" id="sendButton" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-4 mb-4">Send</button>
         </div>
     </div>
 </div>
@@ -305,8 +309,7 @@
     </div>
 </div>
     
-   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+
 </body>
 
 </html>
