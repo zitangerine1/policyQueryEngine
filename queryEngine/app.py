@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from vertexconvo import multi_turn_search_sample
+from flask_socketio import SocketIO, emit
+
 import time
+
 t = time.localtime()
 current_time = time.strftime("%H:%M:%S", t)
 
@@ -21,6 +24,7 @@ search_queries = []
 
 # load_dotenv("./secret.env")
 app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins="*")
 app.secret_key = "9irrqyjcn595lmnf7zsl19xbig3bhaqb"
 
 
@@ -33,7 +37,7 @@ def landing():
 def login():
     email = request.form.get('email')
     password = request.form.get('password')
-    
+
     if email == 'admin@mindef.com' and password == 'abc':
         # Redirect to the success page if authentication is successful
         session['email'] = email
@@ -41,7 +45,7 @@ def login():
     else:
         flash('Incorrect email or password. Please try again.', 'Error: ')
         return render_template("login.html")
-    
+
 
 @app.route("/chat")
 def index():
@@ -65,6 +69,8 @@ def append_dict():
     conversation_data.append(payload)
     search_queries.append(payload["message"])
 
+    socketio.emit("user_message")
+
     active_store: str = "google"
 
     def get_val():
@@ -74,20 +80,22 @@ def append_dict():
 
     print(search_queries)
 
-    info = multi_turn_search_sample(project_id=project_id, location=location, data_store_id=get_val(), search_queries=search_queries)
-    print(info)
+    info = multi_turn_search_sample(project_id=project_id, location=location, data_store_id=get_val(),
+                                    search_queries=search_queries)
 
     conversation_data.append({
         'sender': 'System Message',
         'time': f'{current_time}',
         'message': f'{info.pop()}'
     })
+    socketio.emit('new_message', payload)
+    return jsonify(payload), 200
 
-    updated_content = render_template('update_content.html', conversation_data=conversation_data)
-    return jsonify({'updated_content': updated_content, 'success': True})
+
+@app.route('/getallmessages', methods=["GET"])
+def get_latest_message():
+    return jsonify(conversation_data)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    
-    
+    socketio.run(debug=True)

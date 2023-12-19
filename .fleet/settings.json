@@ -1,3 +1,4 @@
 {
-	"autoSave": "AfterDelay"
+	"autoSave": "AfterDelay",
+	"editor.formatOnSave": true
 }
