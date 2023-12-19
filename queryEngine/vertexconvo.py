@@ -7,7 +7,7 @@ from google.cloud import discoveryengine_v1 as discoveryengine
 project_id = "policy-query-engine"
 location = "global"                    # Values: "global", "us", "eu"
 data_store_id = "google-policies_1702712626667"
-search_queries = ["How is my data used?", "Why does Google do this?"]
+search_queries = ["How is my data used?", "What is a data intermediary?", "Is Google a intermediary?"]
 
 
 def multi_turn_search_sample(
@@ -38,7 +38,7 @@ def multi_turn_search_sample(
         ),
         conversation=discoveryengine.Conversation(),
     )
-
+    res = []
 
     for search_query in search_queries:
         # Add new message to session
@@ -52,26 +52,25 @@ def multi_turn_search_sample(
                 serving_config="default_config",
             ),
             # Options for the returned summary
-            summary_spec=discoveryengine.SearchRequest.ContentSearchSpec.SummarySpec(
-                # Number of results to include in summary
-                summary_result_count=3,
-                include_citations=True,
-            ),
         )
         response = client.converse_conversation(request)
+        res.append(response.reply.summary.summary_text)
 
-        print(f"Reply: {response.reply.summary.summary_text}\n")
+    return res
 
-        for i, result in enumerate(response.search_results, 1):
-            result_data = result.document.derived_struct_data
-            print(f"[{i}]")
-            print(f"Link: {result_data['link']}")
-            print(f"First Snippet: {result_data['snippets'][0]['snippet']}")
-            print(
-                "First Extractive Answer: \n"
-                f"\tPage: {result_data['extractive_answers'][0]['pageNumber']}\n"
-                f"\tContent: {result_data['extractive_answers'][0]['content']}\n\n"
-            )
-        print("\n\n")
-        
-multi_turn_search_sample(project_id=project_id, location=location, data_store_id=data_store_id, search_queries=search_queries)
+        # print(f"Reply: {response.reply.summary.summary_text}\n")
+
+        # for i, result in enumerate(response.search_results, 1):
+        #     result_data = result.document.derived_struct_data
+        #     print(f"[{i}]")
+        #     print(f"Link: {result_data['link']}")
+        #     print(f"First Snippet: {result_data['snippets'][0]['snippet']}")
+        #     print(
+        #         "First Extractive Answer: \n"
+        #         f"\tPage: {result_data['extractive_answers'][0]['pageNumber']}\n"
+        #         f"\tContent: {result_data['extractive_answers'][0]['content']}\n\n"
+        #     )
+        # print("\n\n")
+
+
+# print(multi_turn_search_sample(project_id=project_id, location=location, data_store_id=data_store_id, search_queries=search_queries))

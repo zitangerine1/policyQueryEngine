@@ -1,0 +1,88 @@
+Reply: Google uses your data to provide the services you order and in accordance with the contract terms. They will not use it for any other products or to serve ads. Google's automated systems process your data to provide you services and protection, such as performing spam and malware detection, sorting email, and returning fast search results. They also use your data to track the total number of visitors to the Service, the number of visitors to each page of the Service, and the domain names of your Internet service providers.
+
+[1]
+Link: gs://policy-ggl/malaysia_data_privacy_act_googlecloud_whitepaper.pdf
+First Snippet: Google Cloud Commentary: ○ Google commits to only access or use your data to ... Refer to <b>the Data Usage</b> section of the Google Security whitepaper. Personal&nbsp;...
+First Extractive Answer: 
+	Page: 11
+	Content: Purpose Limitation ● Under the General Principle, personal data shall not be processed unless— (a) the personal data is processed for a lawful purpose directly related to an activity of the data user; (b) the processing of the personal data is necessary for or directly related to that purpose; and (c) the personal data is adequate but not excessive in relation to that purpose.
+
+
+[2]
+Link: gs://policy-ggl/qwiklabs_privacy_policy_en.pdf
+First Snippet: ... <b>the</b> Service, and <b>the</b> domain names of our visitors&#39; <b>Internet</b> service providers. It is important to note that no Personal <b>Data</b> is available or <b>used</b> in this&nbsp;...
+First Extractive Answer: 
+	Page: 2
+	Content: We may use such information and pool it with other information to track, for example, the total number of visitors to the Service, the number of visitors to each page of the Service, and the domain names of our visitors&#39; Internet service providers.
+
+
+[3]
+Link: gs://policy-ggl/singapore-pdpa-wp.pdf
+First Snippet: Know that customer <b>data</b> is not <b>used</b> for advertising. You own <b>your data</b>. Google Cloud does not process <b>your data</b> for advertising purposes. 4. Know where&nbsp;...
+First Extractive Answer: 
+	Page: 9
+	Content: Know where Google stores your data and rely on it being available when you need it. We publish the locations of our Google data centers; they are highly available, resilient, and secure.
+
+
+
+
+
+Reply: A data intermediary is an organization that processes personal data on behalf of another organization. Google Cloud is a data intermediary because it processes personal data on behalf of an organization pursuant to a contract for cloud services. Google Cloud commits to only access or use your data to provide the services ordered by you and in accordance with the contract terms.
+
+[1]
+Link: gs://policy-ggl/singapore-pdpa-wp.pdf
+First Snippet: Topics Key terms &amp; concepts Key term definitions Key concepts <b>Data intermediaries</b> under the PDPA <b>Data intermediary</b> obligations Google Cloud as a data&nbsp;...
+First Extractive Answer: 
+	Page: 5
+	Content: Data intermediary An “<b>organization which processes personal data on behalf of another organization but does not include an employee of that other organization</b>.”
+
+
+[2]
+Link: gs://policy-ggl/malaysia_data_privacy_act_googlecloud_whitepaper.pdf
+First Snippet: This whitepaper provides information to our customers about Malaysia&#39;s Personal <b>Data</b> Protection Act 2010 (PDPA) and how Google Cloud leverages Google&#39;s industry&nbsp;...
+First Extractive Answer: 
+	Page: 3
+	Content: It governs the collection, use, and disclosure of personal data and requires certain entities to register their processing activities.
+
+
+[3]
+Link: gs://policy-ggl/qwiklabs_privacy_policy_en.pdf
+First Snippet: that we cannot resolve with you directly. European Requirements If European Union (EU) or United Kingdom (UK) <b>data</b> protection law applies to&nbsp;...
+First Extractive Answer: 
+	Page: 10
+	Content: You also have the right to object to the processing of your information or export your information to another service.
+
+
+
+
+
+Reply: Google Cloud is a data intermediary under the PDPA because it processes personal data on behalf of an organization pursuant to a contract for cloud services. Google Cloud commits to only access or use your data to provide the services ordered by you and in accordance with the contract terms. 
+
+[1]
+Link: gs://policy-ggl/singapore-pdpa-wp.pdf
+First Snippet: <b>Google</b> Cloud as a <b>data intermediary Google</b> Cloud qualifies as a <b>data intermediary</b> under the PDPA because it processes personal data on behalf of, or for the&nbsp;...
+First Extractive Answer: 
+	Page: 6
+	Content: Google Cloud as a data intermediary <b>Google Cloud qualifies as a data intermediary under the PDPA</b> because it processes personal data on behalf of, or for the purposes of, the organization pursuant to a contract for cloud services.
+
+
+[2]
+Link: gs://policy-ggl/malaysia_data_privacy_act_googlecloud_whitepaper.pdf
+First Snippet: <b>Google</b> Cloud 4 At the core of the PDPA are seven Personal <b>Data</b> Protection Principles (Principles) that govern the processing of personal <b>data</b>. Only&nbsp;...
+First Extractive Answer: 
+	Page: 4
+	Content: The Office of the Personal Data Protection Commissioner has also published Standards relating to security, retention, and data integrity, and FAQs related to the law. When you transfer customer data to Google Cloud as part of your use of our services, we process data on your behalf.
+
+
+[3]
+Link: gs://policy-ggl/qwiklabs_privacy_policy_en.pdf
+First Snippet: ... <b>data</b> protection authority. For the purposes of EU <b>data</b> protection law, Qwiklabs has appointed <b>Google</b> Cloud EMEA Ltd. as its local representative in the EU&nbsp;...
+First Extractive Answer: 
+	Page: 10
+	Content: You also have the right to object to the processing of your information or export your information to another service.
+
+
+
+
+
+None

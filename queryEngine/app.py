@@ -1,10 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
-# from vertexcall import search_sample
+from vertexconvo import multi_turn_search_sample
 import time
 t = time.localtime()
 current_time = time.strftime("%H:%M:%S", t)
 
 conversation_data = []
+project_id = "policy-query-engine"
+location = "global"
+
+datastores = [
+    {"google": "google-policies_1702712626667"},
+    {"azure": "azure-policies_1702961323663"},
+    {"amazon": "amazon-policies_1702961252887"}
+]
+
+search_queries = []
 
 # from dotenv import load_dotenv
 # import os
@@ -13,18 +23,18 @@ conversation_data = []
 app = Flask(__name__)
 app.secret_key = "9irrqyjcn595lmnf7zsl19xbig3bhaqb"
 
+
 @app.route("/")
 def landing():
     return render_template("login.html")
 
+
 @app.route("/login", methods=["POST"])
 def login():
-    isAuth = False
     email = request.form.get('email')
     password = request.form.get('password')
     
     if email == 'admin@mindef.com' and password == 'abc':
-        isAuth = True
         # Redirect to the success page if authentication is successful
         session['email'] = email
         return redirect(url_for('index'))
@@ -35,8 +45,6 @@ def login():
 
 @app.route("/chat")
 def index():
-    active_stores = []
-    # info = search_sample()
     email = session.get('email')
     return render_template("index.html", email=email, conversation_data=conversation_data)
 
@@ -55,8 +63,27 @@ def pastconv():
 def append_dict():
     payload = request.get_json()
     conversation_data.append(payload)
+    search_queries.append(payload["message"])
+
+    active_store: str = "google"
+
+    def get_val():
+        for store in datastores:
+            if active_store in store:
+                return store[active_store]
+
+    print(search_queries)
+
+    info = multi_turn_search_sample(project_id=project_id, location=location, data_store_id=get_val(), search_queries=search_queries)
+    print(info)
+
+    conversation_data.append({
+        'sender': 'System Message',
+        'time': f'{current_time}',
+        'message': f'{info.pop()}'
+    })
+
     updated_content = render_template('update_content.html', conversation_data=conversation_data)
-    print(f'updated_content: {updated_content}')
     return jsonify({'updated_content': updated_content, 'success': True})
 
 
