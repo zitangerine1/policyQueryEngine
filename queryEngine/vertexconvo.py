@@ -5,7 +5,7 @@ from google.cloud import discoveryengine_v1 as discoveryengine
 
 # TODO(developer): Uncomment these variables before running the sample.
 project_id = "policy-query-engine"
-location = "global"                    # Values: "global", "us", "eu"
+location = "global"  # Values: "global", "us", "eu"
 data_store_id = "google-policies_1702712626667"
 search_queries = ["How is my data used?", "What is a data intermediary?", "Is Google a intermediary?"]
 
@@ -52,25 +52,24 @@ def multi_turn_search_sample(
                 serving_config="default_config",
             ),
             # Options for the returned summary
+            summary_spec=discoveryengine.SearchRequest.ContentSearchSpec.SummarySpec(
+                # Number of results to include in summary
+                summary_result_count=3,
+                include_citations=False,
+            ),
         )
+
         response = client.converse_conversation(request)
         res.append(response.reply.summary.summary_text)
 
-    return res
+        source = []
 
-        # print(f"Reply: {response.reply.summary.summary_text}\n")
+        for i, result in enumerate(response.search_results, 1):
+            result_data = result.document.derived_struct_data
+            source.append(
+                f"Page {result_data['extractive_answers'][0]['pageNumber']}: {result_data['extractive_answers'][0]['content']}")
 
-        # for i, result in enumerate(response.search_results, 1):
-        #     result_data = result.document.derived_struct_data
-        #     print(f"[{i}]")
-        #     print(f"Link: {result_data['link']}")
-        #     print(f"First Snippet: {result_data['snippets'][0]['snippet']}")
-        #     print(
-        #         "First Extractive Answer: \n"
-        #         f"\tPage: {result_data['extractive_answers'][0]['pageNumber']}\n"
-        #         f"\tContent: {result_data['extractive_answers'][0]['content']}\n\n"
-        #     )
-        # print("\n\n")
+    return res, source
 
-
-# print(multi_turn_search_sample(project_id=project_id, location=location, data_store_id=data_store_id, search_queries=search_queries))
+# resp, source = multi_turn_search_sample(project_id=project_id, location=location, data_store_id=data_store_id, search_queries=search_queries)
+# print(source)

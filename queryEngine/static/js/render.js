@@ -1,11 +1,13 @@
 $(document).ready(function(){
   function fetchAllMessages() {
     var chatContainer = document.querySelector('#chatContainer')
+
     $.ajax({
       url: "/getallmessages",  // endpoint that returns all messages
       type: "GET",
       success: function(data) {
         $('#chatContainer').empty(); // clear the chat container
+        $('#sourceBox').empty();
 
         data.forEach(function(chat_item){ // loop over each chat item message
           if (chat_item.sender == 'System Message') {
@@ -15,7 +17,7 @@ $(document).ready(function(){
           }
 
           var newMessageHTML = `
-            <div class="flex items-start gap-2.5 mx-4 my-3">
+            <div class="flex items-start gap-2.5 mx-4 my-3 animate__animated animate__fadeIn">
               <img class="w-8 h-8 rounded-full" src="${imgSource}" alt="System image">
               <div class="flex flex-col w-full max-w-[90%] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
                 <div class="flex items-center space-x-2 rtl:space-x-reverse">
@@ -28,7 +30,20 @@ $(document).ready(function(){
               </div>
             </div>`;
 
-          $('#chatContainer').append(newMessageHTML); // append message to chat container
+          if (chat_item.source1 != undefined) {
+            $('#chatContainer').empty();
+            var sourceHTML = `
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Sources</h5>
+            <p class="font-small text-gray-700 dark:text-gray-400">${chat_item.source1}</p><br>
+            <p class="font-small text-gray-700 dark:text-gray-400">${chat_item.source2}</p><br>
+            <p class="font-small text-gray-700 dark:text-gray-400">${chat_item.source3}</p>
+          `
+            $('#sourceBox').append(sourceHTML);
+          }
+
+
+          $('#chatContainer').append(newMessageHTML);
+
         });
       }
     });
