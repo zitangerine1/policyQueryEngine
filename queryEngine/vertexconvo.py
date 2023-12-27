@@ -67,9 +67,9 @@ def multi_turn_search_sample(
         for i, result in enumerate(response.search_results, 1):
             result_data = result.document.derived_struct_data
             source.append(
-                f"Page {result_data['extractive_answers'][0]['pageNumber']}: {result_data['extractive_answers'][0]['content']}")
+                f"Page {result_data['extractive_answers'][0]['pageNumber']}: {result_data['extractive_answers'][0]['content']}") # type: ignore
 
-    return res, source
+    return res, source # type: ignore
 
 # resp, source = multi_turn_search_sample(project_id=project_id, location=location, data_store_id=data_store_id, search_queries=search_queries)
 # print(source)
