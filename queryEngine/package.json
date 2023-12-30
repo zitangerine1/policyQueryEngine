@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "npm install && npm run build",
-    "build": "tailwindcss build static/css/styles.css -o static/css/styles.min.css"
+    "start": "gunicorn --worker-class eventlet -b :$PORT app:app",
+    "build": "tailwindcss -i ./static/src/input.css -o ./static/dist/css/output.css"
   },
   "engines": {
     "node": ">=16.0.0"

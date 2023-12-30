@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  console.log("THIS HAS RUN")
   function fetchAllMessages() {
     var chatContainer = document.querySelector('#chatContainer')
 
