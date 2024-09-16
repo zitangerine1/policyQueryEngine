@@ -8,14 +8,17 @@ import sqlalchemy
 from eventlet import monkey_patch
 # monkey_patch()
 
-connector = Connector()
+from dotenv import load_dotenv
+import os
 
+connector = Connector()
+load_dotenv()
 
 INSTANCE_CONNECTION_NAME = "policy-query-engine:us-west1:response-database"
 
-DB_USER = "couch"
-DB_PASS = "476913"
-DB_NAME = "db1"
+DB_USER = os.getenv('user')
+DB_PASS = os.getenv('pwd')
+DB_NAME = os.getenv('db')
 
 def getconn():
     conn = connector.connect(
